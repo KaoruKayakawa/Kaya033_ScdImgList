@@ -1,0 +1,80 @@
+﻿body {
+    margin: 0px; /* Fixes the positioning of the calendar popup */
+    background-color: ivory;
+    font-family: 'Meiryo UI', 'ＭＳ Ｐゴシック';
+    font-size: 13px;
+}
+
+form
+{
+    margin: 5px;/* Fixes the positioning of the calendar popup */
+    
+    height: 100%;
+}
+
+input.btn01 {
+    height: 2em;
+    padding: 3px 0.8em;
+    font-size: 1em;
+    color: dimgray;
+    border: 1px solid gray;
+    /*
+    border-radius: 4px;
+    */
+    background: linear-gradient(white, wheat);
+    background: -moz-linear-gradient(white, wheat);
+    background: -webkit-gradient(linear, left top, left bottom, from(white), to(wheat));
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    cursor: pointer;
+}
+
+input.btn01:disabled {
+    pointer-events: none;
+    background: linear-gradient(white, rosybrown);
+    background: -moz-linear-gradient(white, rosybrown);
+    background: -webkit-gradient(linear, left top, left bottom, from(white), to(rosybrown));
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    cursor: default;
+}
+
+input.btn01:hover {
+    background: linear-gradient(wheat, wheat);
+    background: -moz-linear-gradient(wheat, wheat);
+    background: -webkit-gradient(linear, left top, left bottom, from(wheat), to(wheat));
+    color: black;
+}
+
+input.btn01:active {
+    background: linear-gradient(white, white);
+    background: -moz-linear-gradient(white, white);
+    background: -webkit-gradient(linear, left top, left bottom, from(white), to(white));
+    color: black;
+}
+
+input.btn02 {
+    padding: 0;
+    background-color: transparent;
+    border-style: none;
+    font-size: 1em;
+    text-decoration: none;
+    color: Blue;
+    cursor: pointer;
+}
+
+input.btn02:disabled {
+    cursor: default;
+}
+
+.modalBackground {
+    background-color: gray;
+    filter: alpha(opacity=70);
+    opacity: 0.7;
+}
+
+.modalPopup {
+    background-color: #FFFFCF;
+    border-width: 3px;
+    border-style: solid;
+    border-color: gray;
+    padding: 3px;
+}

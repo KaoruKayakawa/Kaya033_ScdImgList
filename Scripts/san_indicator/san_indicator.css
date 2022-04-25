@@ -1,0 +1,22 @@
+﻿#sanIndicator_Overlay
+{
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	background:rgba(0, 0, 0, 0.4);
+	z-index:100000;
+}
+
+#sanIndicator_Box {
+	background-color: white;
+	width: 7em;
+	height: 6em;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	margin: -3em -3.5em;
+	border-radius: 1em;
+	behavior: url("/Styles/PIE.htc");
+}
