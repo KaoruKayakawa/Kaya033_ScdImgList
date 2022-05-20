@@ -24,13 +24,25 @@ Public Class db_SHOHIN_IMG_FILE
         End Get
     End Property
 
-    Public Shared Function Select_01(chk As String, scd_from As Long?, scd_to As Long?, pics As Dictionary(Of String, String), keisai As Dictionary(Of String, String)) As DataTable
+    Public Shared Function Select_01(chk As String, scd_from As Long?, scd_to As Long?, fnm_set As Dictionary(Of String, String), pics As Dictionary(Of String, String), keisai As Dictionary(Of String, String)) As DataTable
         Dim sb As StringBuilder = New StringBuilder(1000)
         sb.AppendLine("SELECT *")
         sb.AppendLine("FROM vi_SHOHIN_IMG_FILE_2")
         sb.AppendLine("WHERE SIF_PIC_UNIT = @SIF_PIC_UNIT")
         sb.AppendLine(" AND (SSHM_SCD >= @SSHM_SCD_FROM OR @SSHM_SCD_FROM IS NULL)")
         sb.AppendLine(" AND (SSHM_SCD <= @SSHM_SCD_TO OR @SSHM_SCD_TO IS NULL)")
+
+        Select Case fnm_set.Count
+            Case 0
+                sb.AppendLine(" AND 0 = 1")
+            Case 1
+                Select Case fnm_set.Values(0)
+                    Case "NO"
+                        sb.AppendLine(" AND SSHM_SFILENAME = ''")
+                    Case "YES"
+                        sb.AppendLine(" AND SSHM_SFILENAME <> ''")
+                End Select
+        End Select
 
         If pics.Count = 0 Then
             sb.AppendLine(" AND 0 = 1")

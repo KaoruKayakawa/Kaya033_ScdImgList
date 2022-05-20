@@ -14,11 +14,11 @@
         <%: System.Web.Optimization.Scripts.Render("~/Scripts/JS") %>
     </asp:PlaceHolder>
 </head>
-<body onresize="adjust_divListHeight();">
+<body onresize="adjust_divListHeight_2t();">
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         
-        <table style="width: 100%;">
+        <table id="tbl_head" style="width: 100%;">
             <colgroup>
                 <col style="width: 100%;" />
             </colgroup>
@@ -46,6 +46,8 @@
                             <col style="width: 8em;" />
                             <col style="width: 20em;" />
                             <col style="width: 8em;" />
+                            <col style="width: 22em;" />
+                            <col style="width: 12em;" />
                             <col />
                         </colgroup>
                         <tr>
@@ -64,13 +66,20 @@
                                 商品：
                             </td>
                             <td>
-                                <asp:TextBox ID="tbx_shohinCd_from" runat="server" Width="8em" MaxLength="12" />
+                                <asp:TextBox ID="tbx_shohinCd_from" runat="server" Width="7.5em" MaxLength="12" />
                                 <ajaxToolkit:FilteredTextBoxExtender ID="tbx_shohinCd_from_FilteredTextBoxExtender" runat="server"
                                         TargetControlID="tbx_shohinCd_from" FilterType="Numbers" />
                                 &nbsp;～&nbsp;
-                                <asp:TextBox ID="tbx_shohinCd_to" runat="server" Width="8em" MaxLength="12" />
+                                <asp:TextBox ID="tbx_shohinCd_to" runat="server" Width="7.5em" MaxLength="12" />
                                 <ajaxToolkit:FilteredTextBoxExtender ID="tbx_shohinCd_to_FilteredTextBoxExtender" runat="server"
                                         TargetControlID="tbx_shohinCd_to" FilterType="Numbers" />
+                            </td>
+                            <td style="text-align: right; padding-right: 5px;">
+                                画像ファイルの設定：
+                            </td>
+                            <td>
+                                <asp:CheckBox ID="chk_fnm_0" runat="server" Text="なし" Checked="false" TextAlign="Right" Val="NO" />
+                                <asp:CheckBox ID="chk_fnm_1" runat="server" Text="あり" Checked="true" TextAlign="Right" Style="padding-left: 10px;" Val="YES" />
                             </td>
                         </tr>
                     </table>
@@ -82,7 +91,7 @@
                     <table style="width: 100%;">
                         <colgroup>
                             <col style="width: 8em;" />
-                            <col style="width: 30em;" />
+                            <col style="width: 17em;" />
                             <col style="width: 8em;" />
                             <col />
                             <col style="width: 6em;" />
@@ -94,16 +103,16 @@
                             </td>
                             <td>
 					            <asp:CheckBox ID="chk_PIC" runat="server" Text="画" Checked="true" TextAlign="Right" DbCol="IMG" />
-                                <asp:CheckBox ID="chk_DTL" runat="server" Text="画(dtl)" Checked="true" TextAlign="Right" Style="padding-left: 20px;" DbCol="DTL_IMG" />
-                                <asp:CheckBox ID="chk_KLS" runat="server" Text="画(kls)" Checked="true" TextAlign="Right" Style="padding-left: 20px;" DbCol="KLS_IMG" />
+                                <asp:CheckBox ID="chk_DTL" runat="server" Text="画(dtl)" Checked="true" TextAlign="Right" Style="padding-left: 10px;" DbCol="DTL_IMG" />
+                                <asp:CheckBox ID="chk_KLS" runat="server" Text="画(kls)" Checked="true" TextAlign="Right" Style="padding-left: 10px;" DbCol="KLS_IMG" />
                             </td>
                             <td style="text-align: right; padding-right: 5px;">
                                 掲載：
                             </td>
                             <td>
                                 <asp:CheckBox ID="chk_keisai_0" runat="server" Checked="false" Text="非掲載(0)" TextAlign="Right" DbVal="0" />
-                                <asp:CheckBox ID="chk_keisai_1" runat="server" Checked="true" Text="掲載(1)" TextAlign="Right" Style="padding-left: 20px;" DbVal="1" />
-                                <asp:CheckBox ID="chk_keisai_3" runat="server" Checked="false" Text="隠れスポット(3)" TextAlign="Right" Style="padding-left: 20px;" DbVal="3"/>
+                                <asp:CheckBox ID="chk_keisai_1" runat="server" Checked="true" Text="掲載(1)" TextAlign="Right" Style="padding-left: 10px;" DbVal="1" />
+                                <asp:CheckBox ID="chk_keisai_3" runat="server" Checked="false" Text="隠れスポット(3)" TextAlign="Right" Style="padding-left: 10px;" DbVal="3"/>
                             </td>
                             <td style="text-align: right;">
                                 <asp:Button ID="btn_Search" runat="server" CssClass="btn01" Text="検 索" ValidationGroup="VarGrp1" OnClick="btn_Search_Click" />
@@ -134,7 +143,7 @@
                         </colgroup>
                         <tr>
                             <td>
-                                <table style="width: 100%;">
+                                <table id="tbl_condCap" style="width: 100%;">
                                     <colgroup>
                                         <col style="width: 7em;" />
                                         <col />
@@ -155,6 +164,8 @@
                                             [商品]&nbsp;&nbsp;<asp:Label ID="lbl_shoCd_1" runat="server" Text="  " />
                                             &nbsp;～&nbsp;
                                             <asp:Label ID="lbl_shoCd_2" runat="server" Text="&nbsp;&nbsp;" />
+                                            ,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            [画像ファイルの設定]&nbsp;&nbsp;<asp:Label ID="lbl_fnm_set" runat="server" Text="&nbsp;&nbsp;" />
                                             ,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             [画像種別]&nbsp;&nbsp;<asp:Label ID="lbl_picDiv" runat="server" Text="&nbsp;&nbsp;" />
                                             ,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -201,7 +212,7 @@
                                                                 <th style="padding: 3px; color: Gray; background-color: lightgrey; text-align: center;">制限</th>
                                                                 <th style="padding: 3px; color: Gray; background-color: lightgrey; text-align: center;">掲載</th>
                                                                 <th style="padding: 3px; color: Gray; background-color: lightgrey; text-align: center;">品名</th>
-                                                                <th style="padding: 3px; color: Gray; background-color: lightgrey; text-align: center;">ファイル名</th>
+                                                                <th style="padding: 3px; color: Gray; background-color: lightgrey; text-align: center;">画像ファイル</th>
                                                                 <th style="padding: 3px; color: Gray; background-color: lightgrey; text-align: center;">画</th>
                                                                 <th style="padding: 3px; color: Gray; background-color: lightgrey; text-align: center;">画(dtl)</th>
                                                                 <th style="padding: 3px; color: Gray; background-color: lightgrey; text-align: center;">画(kls)</th>
@@ -400,7 +411,7 @@
             mng.remove_endRequest(endRequest_mng);
             mng.add_endRequest(endRequest_mng);
 
-            adjust_divListHeight();
+			adjust_divListHeight();
         }
         function initializeRequest_mng(sender, args) {
             if (mng.get_isInAsyncPostBack()) {
@@ -415,19 +426,24 @@
             $.sanIndicator.hide();
         }
 
-        function adjust_divListHeight() {
-            var height = document.documentElement.clientHeight - 280;
-            if (height < 0) {
-                height = 0;
-            }
+		function adjust_divListHeight() {
+			var height = $(window).innerHeight() - $('#tbl_head').outerHeight() - $('#tbl_condCap').outerHeight() - 115;
+			if (height < 0) {
+				height = 0;
+			}
 
-            document.getElementById('div_List').style.height = height + 'px';
-        }
+			var ele = $('#div_List');
+			ele.outerHeight(height);
+		}
+		function adjust_divListHeight_2t() {
+			adjust_divListHeight();
+			adjust_divListHeight();
+		}
 
         function ddl_validateSelectValue(oSrc, args) {
             args.IsValid = (args.Value.toString() != "");
         }
     //-->
-    </script>
+	</script>
 </body>
 </html>

@@ -122,6 +122,24 @@ Partial Public Class _default
 	Protected WithEvents tbx_shohinCd_to_FilteredTextBoxExtender As Global.AjaxControlToolkit.FilteredTextBoxExtender
 
 	'''<summary>
+	'''chk_fnm_0 コントロール。
+	'''</summary>
+	'''<remarks>
+	'''自動生成されたフィールド。
+	'''変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
+	'''</remarks>
+	Protected WithEvents chk_fnm_0 As Global.System.Web.UI.WebControls.CheckBox
+
+	'''<summary>
+	'''chk_fnm_1 コントロール。
+	'''</summary>
+	'''<remarks>
+	'''自動生成されたフィールド。
+	'''変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
+	'''</remarks>
+	Protected WithEvents chk_fnm_1 As Global.System.Web.UI.WebControls.CheckBox
+
+	'''<summary>
 	'''chk_PIC コントロール。
 	'''</summary>
 	'''<remarks>
@@ -246,6 +264,15 @@ Partial Public Class _default
 	'''変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
 	'''</remarks>
 	Protected WithEvents lbl_shoCd_2 As Global.System.Web.UI.WebControls.Label
+
+	'''<summary>
+	'''lbl_fnm_set コントロール。
+	'''</summary>
+	'''<remarks>
+	'''自動生成されたフィールド。
+	'''変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
+	'''</remarks>
+	Protected WithEvents lbl_fnm_set As Global.System.Web.UI.WebControls.Label
 
 	'''<summary>
 	'''lbl_picDiv コントロール。

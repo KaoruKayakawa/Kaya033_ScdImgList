@@ -10,6 +10,7 @@ Public Class _default
     Protected _cond_disp_chk As String
     Protected _cond_shocd_from As Long?
     Protected _cond_shocd_to As Long?
+    Protected _cond_fnm_set As Dictionary(Of String, String)
     Protected _cond_pic As Dictionary(Of String, String)
     Protected _cond_keisai As Dictionary(Of String, String)
 
@@ -76,7 +77,7 @@ Public Class _default
     End Sub
 
     Protected Sub selectData()
-        Session(_SESSION_REP_DTTBL) = db_SHOHIN_IMG_FILE.Select_01(_cond_chk, _cond_shocd_from, _cond_shocd_to, _cond_pic, _cond_keisai)
+        Session(_SESSION_REP_DTTBL) = db_SHOHIN_IMG_FILE.Select_01(_cond_chk, _cond_shocd_from, _cond_shocd_to, _cond_fnm_set, _cond_pic, _cond_keisai)
 
         lbl_picUnit_1.Text = _cond_disp_chk
         If _cond_shocd_from Is Nothing Then
@@ -89,6 +90,15 @@ Public Class _default
         Else
             Me.lbl_shoCd_2.Text = _cond_shocd_to.Value.ToString("d")
         End If
+
+        Dim fns As String = String.Empty
+        For Each fs As String In _cond_fnm_set.Keys
+            fns += "、" + fs
+        Next
+        If fns <> String.Empty Then
+            fns = fns.Substring(1)
+        End If
+        Me.lbl_fnm_set.Text = fns
 
         Dim pics As String = String.Empty
         For Each pic As String In _cond_pic.Keys
@@ -188,6 +198,14 @@ Public Class _default
             _cond_shocd_to = Convert.ToInt64(Me.tbx_shohinCd_to.Text)
         End If
 
+        _cond_fnm_set = New Dictionary(Of String, String)()
+        If chk_fnm_0.Checked Then
+            _cond_fnm_set.Add(chk_fnm_0.Text, chk_fnm_0.Attributes("Val"))
+        End If
+        If chk_fnm_1.Checked Then
+            _cond_fnm_set.Add(chk_fnm_1.Text, chk_fnm_1.Attributes("Val"))
+        End If
+
         _cond_pic = New Dictionary(Of String, String)()
         If chk_PIC.Checked Then
             _cond_pic.Add(chk_PIC.Text, chk_PIC.Attributes("DbCol"))
@@ -215,16 +233,17 @@ Public Class _default
 
     Protected Sub btn_CsvOutput_Click(sender As Object, e As EventArgs)
         Dim tbl As DataTable = DirectCast(Me.Session(_SESSION_REP_DTTBL), DataTable)
-        Dim ls As List(Of String) = New List(Of String)(tbl.Rows.Count + 8)
+        Dim ls As List(Of String) = New List(Of String)(tbl.Rows.Count + 9)
 
         ls.Add("検証日時：　" + lrl_ymd.Text)
         ls.Add("抽出条件：　")
         ls.Add("　画像ユニット：　" + lbl_picUnit_1.Text)
         ls.Add("　商品：　" + lbl_shoCd_1.Text + "～" + lbl_shoCd_2.Text)
+        ls.Add("　画像ファイルの設定：　" + lbl_fnm_set.Text)
         ls.Add("　画像種別：　" + lbl_picDiv.Text)
         ls.Add("　掲載：　" + lbl_keisai.Text)
         ls.Add("")
-        ls.Add("店舗コード,部門コード,商品コード,JAN,数量制限,掲載フラグ,品名,ファイル名,画,画(dtl),画(kls),,※ 画　〇：ファイルあり、　●：ファイルなし、　空白：対象外")
+        ls.Add("店舗コード,部門コード,商品コード,JAN,数量制限,掲載フラグ,品名,画像ファイル,画,画(dtl),画(kls),,※ 画　〇：ファイルあり、　●：ファイルなし、　空白：対象外")
 
         Dim sb As StringBuilder = New StringBuilder(1000), pic_mark As String
         For Each row As DataRow In tbl.Rows
